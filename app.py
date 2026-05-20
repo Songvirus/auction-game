@@ -3,6 +3,7 @@ from flask_socketio import SocketIO, emit
 import random
 import threading
 import time
+import os
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "auction_secret"
@@ -596,4 +597,5 @@ def reset_auction():
 # RUN APP
 # -----------------------------
 if __name__ == "__main__":
-    socketio.run(app, host="0.0.0.0", port=5000, debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    socketio.run(app, host="0.0.0.0", port=port, debug=False, allow_unsafe_werkzeug=True)
